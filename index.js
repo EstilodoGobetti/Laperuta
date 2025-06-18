@@ -1,11 +1,17 @@
 require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 
-const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+// Configurar o bot sem polling, pois só vai enviar mensagens
+const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: false });
 
-bot.onText(/\/start/, (msg) => {
-  const chatId = msg.chat.id;
-  bot.sendMessage(chatId, 'Olá! Bot iniciado com sucesso 🚀');
-});
+// Mensagem que será enviada
+const mensagem = "🚀 Bot no ar com sucesso! Receba ofertas aqui!";
 
-console.log('Bot rodando...');
+// Envia a mensagem assim que o bot iniciar
+bot.sendMessage(process.env.CHAT_ID, mensagem)
+  .then(() => {
+    console.log("✅ Mensagem enviada com sucesso!");
+  })
+  .catch((err) => {
+    console.error("❌ Erro ao enviar a mensagem:", err.message);
+  });
