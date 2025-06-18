@@ -1,2 +1,1 @@
 touch index.js
-.env
